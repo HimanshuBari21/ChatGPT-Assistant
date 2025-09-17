@@ -7,18 +7,16 @@ import {
   FlatList,
   ActivityIndicator,
   Image,
-} from 'react-native';
-import React, { useRef, useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { Role, Message, useApi } from '../hooks/useApi';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import userImage from '../../assets/user.png';
-import aiImage from '../../assets/ai.png';
-
+} from "react-native";
+import React, { useRef, useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { Role, Message, useApi } from "../hooks/useApi";
+import { SafeAreaView } from "react-native-safe-area-context";
+import userImage from "../../assets/user.png";
+import aiImage from "../../assets/ai.png";
 
 const ChatPage = () => {
-
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { getCompletion, messages } = useApi();
@@ -32,7 +30,7 @@ const ChatPage = () => {
       }, 100);
 
       const messageContent = text.trim();
-      setText('');
+      setText("");
       setLoading(true);
       await getCompletion(messageContent);
       setLoading(false);
@@ -48,21 +46,27 @@ const ChatPage = () => {
     const isUserMessage = item.role === Role.User;
 
     return (
-      <View style={[
-        styles.messageContainer,
-        isUserMessage ? styles.userMessageContainer : styles.aiMessageContainer
-      ]}>
+      <View
+        style={[
+          styles.messageContainer,
+          isUserMessage
+            ? styles.userMessageContainer
+            : styles.aiMessageContainer,
+        ]}
+      >
         <Image
           source={isUserMessage ? userImage : aiImage}
           style={styles.image}
         />
-        <Text style={styles.messageText} selectable>{item.content}</Text>
+        <Text style={styles.messageText} selectable>
+          {item.content}
+        </Text>
       </View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['bottom']}>
+    <SafeAreaView style={styles.container} edges={["bottom"]}>
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -78,8 +82,8 @@ const ChatPage = () => {
             style={styles.textInput}
             value={text}
             onChangeText={setText}
-            placeholder='Message'
-            placeholderTextColor={'#fff7'}
+            placeholder="Message"
+            placeholderTextColor={"#fff7"}
             editable={!loading}
             multiline
           />
@@ -89,7 +93,7 @@ const ChatPage = () => {
           onPress={handleSendMessage}
           disabled={loading}
         >
-          <Ionicons name='send' size={24} color='white' />
+          <Ionicons name="send" size={24} color="white" />
         </Pressable>
       </View>
     </SafeAreaView>
@@ -99,46 +103,46 @@ const ChatPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0D0D0D',
+    backgroundColor: "#0D0D0D",
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 8,
   },
   inputWrapper: {
     flex: 1,
     borderWidth: 2,
-    borderColor: '#2F2F2F',
+    borderColor: "#2F2F2F",
     borderRadius: 16,
     minHeight: 40,
-    backgroundColor: '#242424',
-    justifyContent: 'center',
+    backgroundColor: "#242424",
+    justifyContent: "center",
     paddingHorizontal: 12,
   },
   textInput: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   sendButton: {
-    backgroundColor: '#18191a',
+    backgroundColor: "#18191a",
     borderRadius: 99,
     padding: 12,
     marginLeft: 8,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     borderWidth: 2,
-    borderColor: '#2F2F2F',
+    borderColor: "#2F2F2F",
   },
   messageContainer: {
     gap: 12,
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 12,
     paddingVertical: 16,
   },
   userMessageContainer: {
-    backgroundColor: '#212121',
+    backgroundColor: "#212121",
   },
   aiMessageContainer: {
-    backgroundColor: '#0D0D0D',
+    backgroundColor: "#0D0D0D",
   },
   image: {
     width: 40,
@@ -147,9 +151,9 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 16,
     flex: 1,
-    flexWrap: 'wrap',
-    color: '#fff',
-    alignSelf: 'center'
+    flexWrap: "wrap",
+    color: "#fff",
+    alignSelf: "center",
   },
   footerIndicator: {
     marginTop: 20,
